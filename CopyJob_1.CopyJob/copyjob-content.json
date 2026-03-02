@@ -1,0 +1,95 @@
+{
+  "properties": {
+    "jobMode": "Batch",
+    "source": {
+      "type": "DataWarehouseTable",
+      "connectionSettings": {
+        "type": "DataWarehouse",
+        "typeProperties": {
+          "workspaceId": "053ef2e8-3b49-4048-b8c2-c405808f3546",
+          "artifactId": "7147d2bf-789a-418b-89ac-bfc7f202f510",
+          "endPoint": "fv7crbv36tnuhhd2o3gc7qaj5i-5dzd4bkjhneebogcyqcybdzviy.datawarehouse.fabric.microsoft.com"
+        }
+      }
+    },
+    "destination": {
+      "type": "FabricSqlDatabaseTable",
+      "connectionSettings": {
+        "type": "FabricSqlDatabase",
+        "typeProperties": {
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "artifactId": "e7f9c9a3-5b81-8649-46cd-acc68088cf8e"
+        },
+        "externalReferences": {
+          "connection": "276ad22d-0eaf-4a18-8210-63486d62c0d0"
+        }
+      }
+    },
+    "policy": {
+      "timeout": "0.12:00:00",
+      "retry": 0
+    }
+  },
+  "activities": [
+    {
+      "id": "152ed283-0ff7-4b93-b4eb-18138424e606",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "Weather"
+          }
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "Weather"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    },
+    {
+      "id": "b1fc7f1b-b8f9-491e-a50a-c9372cf169ff",
+      "properties": {
+        "source": {
+          "datasetSettings": {
+            "querySettings": {
+              "queryName": "Top10Weather",
+              "query": "SELECT TOP 10 * FROM dbo.Weather"
+            }
+          }
+        },
+        "destination": {
+          "tableOption": "autoCreate",
+          "writeBehavior": "Append",
+          "datasetSettings": {
+            "schema": "dbo",
+            "table": "Top10Weather"
+          }
+        },
+        "enableStaging": false,
+        "translator": {
+          "type": "TabularTranslator"
+        },
+        "typeConversionSettings": {
+          "typeConversion": {
+            "allowDataTruncation": true,
+            "treatBooleanAsNumber": false
+          }
+        }
+      }
+    }
+  ]
+}
